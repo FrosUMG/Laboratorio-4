@@ -1,0 +1,36 @@
+const int hot = 27; //set hot parameter
+const int cold = 15; //set cold parameter
+void setup() {
+pinMode(A2, INPUT); //sensor
+pinMode(2, OUTPUT); //blue
+pinMode(3, OUTPUT); //green
+pinMode(4, OUTPUT); //red
+Serial.begin(9600);
+}
+void loop() {
+int sensor = analogRead(A2);
+float tempC=(((5 * sensor)*100)/1024);//
+
+Serial.print("temp: ");
+Serial.print(tempC);
+
+if (tempC < cold) { //cold
+digitalWrite(2, HIGH);
+digitalWrite(3, LOW);
+digitalWrite(4, LOW);
+Serial.println(" Clima Frio ");
+}
+else if (tempC >= hot) { //hot
+digitalWrite(2, LOW);
+digitalWrite(3, LOW);
+digitalWrite(4, HIGH);
+Serial.println(" Clima caliente ");
+}
+else { //fine
+digitalWrite(2, LOW);
+digitalWrite(3, HIGH);
+digitalWrite(4, LOW);
+Serial.println(" Clima normal ");
+}
+delay(20000);
+}
